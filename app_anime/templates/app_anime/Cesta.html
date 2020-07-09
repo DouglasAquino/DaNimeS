@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cesta</title>
+    <style rel="stylesheet"> 
+         body { background-image: url("https://cdn.panelinha.com.br/receita/1543940915947-cuscuz%20de%20milho%20%281%29.jpg"); }
+         #barra{background-color: black; left: 0%; width: 1000px; position: absolute; top: 0%;}
+         #cardapio{background-color: transparent; left: 20%; width: 1000px; top: 8%; position: absolute;}
+         #trT{background-color: white; filter:alpha(opacity=50); opacity:0.8;}
+         #trC{background-color: white; filter:alpha(opacity=50); opacity:0.8;}
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <div id="barra"><font color="white">Sua Cesta de pedidos {{user.username}}.</font>
+        <a href="{% url 'inicial'%}"><input type="button" value="Voltar"></a></div>
+        {%if not Cesta %}
+            <center>
+            <h1><font color="white">Sua Cesta está Vazia!</font></h1>
+        {% else %}
+         <div id="cardapio">
+            <br>
+            <table border=1>
+                <tr id="trT">
+                    <th>Pratos</th>
+                    <th>Valor</th>
+                </tr>
+                {%for p in Cesta %}
+                    <tr id="trC">
+                        <td>{{p.nome}}</td>
+                        <td>{{p.valor}}</td>
+                        <td><a href="{% url 'inicial'%}"><input type="button" value="Excluir da Cesta"></a></td>
+                    </tr>
+                {%endfor%}
+            </table>
+            <a href="{% url 'fazerPedido'%}"><input type="button" value="efetuar Pedido"></a>
+        {%endif%}
+    {% endif %}
+    
+</body>
+</html>

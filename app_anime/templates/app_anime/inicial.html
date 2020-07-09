@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Home</title>
+    <style>#name{display: inline-block; padding: 20px; width: 250px;}
+           #play{display: inline-block;}
+    </style>
+  </head>
+  <body>
+    {% for file in perso %}
+          <h2>{{file.nome}}</h2><br> <img src="{{file.imagem.url}}" width="200">
+          <br>
+          <h2>{{file.onomatopeia}}</h2>
+          <div id="play"><audio src="{{ file.risada.url }}" controls="controls">
+          Your browser does not support the audio element.
+          </audio></div>
+    {% endfor %}
+  </body>
+</html>

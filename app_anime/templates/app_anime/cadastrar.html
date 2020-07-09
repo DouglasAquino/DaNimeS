@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <style rel="stylesheet"> 
+        body { background-image: url("https://cdn.panelinha.com.br/receita/1543940915947-cuscuz%20de%20milho%20%281%29.jpg"); }
+        #Centro{ 
+            background-color: transparent; 
+            width: 500px; 
+            height: 700px;
+            left: 25%; 
+            margin: 0px 0 0 0px; 
+            padding:0px; 
+            position: absolute;
+            top: 0%; }
+    </style>
+</head>
+<body>
+    <div id="Centro">
+        <font color="white">
+        <form action="{% url 'Cadastrar' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Salvar">
+        </form>
+        </font>
+        <br><a href="{% url 'inicial'%}"><input type="button" onclick=Alerta value="Voltar"></a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Home</title>
+    <style rel="stylesheet"> 
+            * { margin: 0; padding: 0; font-family:Tahoma; font-size:12pt;}
+        #divCenter { 
+                background-color: transparent; 
+                width: 200px; 
+                height: 110px; 
+                left: 50%; 
+                margin: -90px 0 0 -130px; 
+                padding:10px;
+                position: absolute; 
+                top: 50%; }
+         body { background-image: url("https://cdn.panelinha.com.br/receita/1543940915947-cuscuz%20de%20milho%20%281%29.jpg"); 
+         }
+    </style>
+</head>
+<body>
+    <div id="divCenter">
+            <form action="." method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Entrar">
+                <a href="{% url 'Cadastrar'%}"><input type="button" value="Cadastrar"></a>
+            </form></a>
+    </div>
+</body>
+</html>

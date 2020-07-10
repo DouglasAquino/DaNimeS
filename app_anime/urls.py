@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import inicial, cadastrar
+from .views import inicial, cadastrar, quiz_risadas
 from django.conf.urls import url
 import audioop
 
@@ -10,6 +10,7 @@ import audioop
 urlpatterns = [
     path('',inicial,name="inicial"),
     path('cadastrar',cadastrar,name="cadastrar"),
+    path('quiz_risadas',quiz_risadas,name="quiz_risadas"),
     # Here we mount the app under /music. Feel free to use something else
     #url(r'^$', include(' '), name='home'),
     #url("risada", include("audiotracks.urls")),

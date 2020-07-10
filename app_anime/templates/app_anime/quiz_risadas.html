@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz risadas</title>
+    <style rel="stylesheet"> 
+        body { background-image: url("https://i0.wp.com/livewallpaper.info//wp-content/uploads/2016/11/one-piece-wallpaper-High-Resolution-Download3.jpg?ssl=1"); }
+        #barra{background-color: black; left: 0%; width: 1000px; position: absolute; top: 0%;}
+        #botoes{background-color: transparent; left: 42%; width: 500px; top: 48%; position: absolute;}
+        #trT{background-color: white; filter:alpha(opacity=50); opacity:0.8;}
+        #risada{background-color: white; filter:alpha(opacity=50); opacity:0.8; left: 35%; width: 500px; top: 18%; position: absolute;}
+        #name{display: inline-block; padding: 20px; width: 250px; }
+        #play{display: inline-block; position: absolute; left: 42%; width: 500px; top: 35%;}
+</style>
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <div id="barra">
+            <font color="white">
+                    {{ user.username }}.
+                    quiz de risadas de One piece
+                <a href="{% url 'logout'%}"><input type="button" value="Sair"></a>
+            </font>
+        </div>
+        <table border='1'>
+            <td id="risada"><center><font size="60">{{perso.onomatopeia }}</td>
+            <div id="play"><audio src="{{ perso.risada.url }}" controls="controls">
+            Your browser does not support the audio element.
+            </audio></div>
+        </table>
+        <div id="botoes">
+            {% for i in lista %}
+                <input type="submit" value="{{i.nome}}">
+            {%endfor%}
+        </div>
+    {% endif %}
+    
+</body>
+</html>

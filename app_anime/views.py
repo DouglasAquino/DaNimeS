@@ -3,6 +3,7 @@ from .models import *
 from .forms import *
 from django.contrib.auth.hashers import make_password
 from audioop import reverse
+from random import randint
 
 def inicial(request):
     perso=Personagem.objects.all()
@@ -24,3 +25,28 @@ def cadastrar(request):
         usuario.user=user
         usuario.save()
         return redirect(reverse, 'inicial')
+
+lista=[]
+def gera():
+    listaP=Personagem.objects.all()
+    x = randint(0,len(listaP)-1)
+    perso=Personagem.objects.filter(pk=x)
+    if perso.exists():
+        personagem=Personagem.objects.get(pk=x)
+        lista.append(personagem)
+        return personagem
+    else:
+        gera()
+
+
+def quiz_risadas(request):
+    perso=gera()
+    lista_botoes=[]
+    tudo=Personagem.objects.all()
+    cont=0
+    for i in tudo:
+        lista_botoes.append(i)
+        cont+=1
+        if cont == 4:
+            break
+    return render(request, 'app_anime/quiz_risadas.html', {'perso': perso, 'lista':lista_botoes})

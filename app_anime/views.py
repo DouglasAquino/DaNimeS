@@ -6,7 +6,7 @@ from audioop import reverse
 from random import randint
 
 def inicial(request):
-    perso=Personagem.objects.all()
+    perso=Personagem_Risada.objects.all()
     return render(request, 'app_anime/inicial.html', {'perso': perso})
 
 def cadastrar(request):
@@ -28,7 +28,7 @@ def cadastrar(request):
 
 lista=[]
 def gera():
-    listaP=Personagem.objects.all()
+    listaP=Personagem_Risada.objects.all()
     x = randint(0,len(listaP)-1)
     perso=Personagem.objects.filter(pk=x)
     if perso.exists():

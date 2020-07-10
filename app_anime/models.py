@@ -11,11 +11,11 @@ class Usuario(models.Model):
         return '{} - {}'.format(self.nome, self.user)
 
 
-class Personagem(models.Model):
+class Personagem_Risada(models.Model):
     nome= models.CharField(max_length= 15, blank= True, null= True)
-    imagem= models.ImageField(upload_to = 'Pimagem') 
+    imagem= models.ImageField(upload_to = 'Imagem') 
     onomatopeia= models.CharField(max_length= 15, blank= True, null= True)
-    risada = models.FileField(upload_to = 'risada')
+    risada = models.FileField(upload_to = 'Risada')
 
     def __str__(self):
         return self.nome
@@ -29,9 +29,9 @@ class Xp(models.Model):
         return '{} - {}'.format(self.usuario, self.qt_pontos)
 
 
-class Anime(models.Model):
+class Op_Anime(models.Model):
     nome= models.CharField(max_length= 20, blank= True, null= True)
-    opening = models.FileField(upload_to = 'imagens')
+    opening = models.FileField(upload_to = 'Opening')
 
     def __str__(self):
         return self.nome

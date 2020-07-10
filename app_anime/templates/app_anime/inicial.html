@@ -1,23 +1,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Home</title>
+    <title>DaNimeS</title>
     <style>#name{display: inline-block; padding: 20px; width: 250px;}
            #play{display: inline-block;}
-            body { background-image: url("https://coisasdojapao.com/wp-content/uploads/2017/06/musicasdeanimesJap%C3%A3o.jpg"); background-repeat: no-repeat; }
-           #barra{background-color: black; width: 1300px; height: 50px; position: absolute; top: 0%;}
+           #usuario{background-color: transparent; width: 700; heigth: 20; left: 15%; position: absolute; top: 5%;}
+           #botao{background-color: transparent; width: 700; heigth: 20; left: 20%; position: absolute; top: 58%;}
+            body { background-image: url("media/Pimagem/background.jpg"); background-repeat: no-repeat; }
+           #barra{background-color: black; width: 1390px; height: 80px; position: absolute; left: 0%; top: 0%;}
+           #jogo{background-color: transparent; width: 400; left: 10%; position: absolute; top: 25%;}
     </style>
   </head>
   <body>
-    <div id="barra"><img src="https://w7.pngwing.com/pngs/675/362/png-transparent-monkey-d-luffy-roronoa-zoro-anime-usopp-one-piece-anime-hat-manga-cowboy-hat.png" width="50">
-    <font color="white">DaNimeS</font></div>
-    {% for file in perso %}
-          <h2>{{file.nome}}</h2><br> <img src="{{file.imagem.url}}" width="200">
-          <br>
-          <h2>{{file.onomatopeia}}</h2>
-          <div id="play"><audio src="{{ file.risada.url }}" controls="controls">
-          Your browser does not support the audio element.
-          </audio></div>
-    {% endfor %}
+    {% if user.is_authenticated %}
+      <div id="barra">
+        <img src="media/Pimagem/logo-DaNimes.png" width="200">
+        <div id="botao"><a href="{% url 'logout' %}"><img src="media/Pimagem/botao_sair.png" width="50"></a></div>
+      </div>
+      <div id="usuario"><font color="white">Bem Vindo(a) {{user.username}} - seus pontos: {{usuario.xp}}</font></div>
+    {%else%}
+      <div id="barra"><center><img src="media/Pimagem/logo-DaNimes.png" width="200">
+      <a href="{% url 'login' %}"><img src="media/Pimagem/botao_entrar.png" width="60"></a></div>
+    {%endif%}
+    <div id="jogo">
+      <div id="base">
+        <img src="media/Pimagem/base_jogo.jpg" width="400">
+      </div>
+    </div>
   </body>
 </html>

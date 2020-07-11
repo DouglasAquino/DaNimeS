@@ -4,6 +4,7 @@ from .forms import *
 from django.contrib.auth.hashers import make_password
 from audioop import reverse
 from random import randint
+from django.http import HttpResponse
 
 def inicial(request):
     perso=Personagem_Risada.objects.all()
@@ -38,7 +39,6 @@ def gera():
     else:
         gera()
 
-
 def quiz_risadas(request):
     perso=gera()
     lista_botoes=[]
@@ -51,6 +51,28 @@ def quiz_risadas(request):
             break
     return render(request, 'app_anime/quiz_risadas.html', {'perso': perso, 'lista':lista_botoes})
 
+
+def Maiores():
+    lista=list(Xp.objects.all())
+    pontos=[]
+    for i in lista:
+        pontos.append(i.qt_pontos)
+
+    #ranking=lista.sort(key=lambda a: a.qt_pontos)
+    return ranking
+
+def wanted(request):
+    if request.user.is_authenticated:
+        usuario=Usuario.objects.filter(user=request.user)
+        if usuario.exists():
+            usuario=Usuario.objects.get(nome=request.user)
+            xp=Xp.objects.get(usuario=usuario)
+            maiores=Maiores()
+            return render(request, 'app_anime/wanted.html', {'xp':xp,'maiores':maiores})
+        else:
+            return HttpResponse('ERROR!!')
+    else:
+        return render(request, 'app_anime/erro_autenticacao.html', {})
 
 def quiz_Op(request):
     openings = Op_Anime.objects.all()

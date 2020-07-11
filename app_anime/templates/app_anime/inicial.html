@@ -57,7 +57,7 @@
     #jogo2 {
       background-color: transparent;
       width: 400;
-      left: 40%;
+      left: 60%;
       position: absolute;
       top: 25%;
     }
@@ -78,10 +78,13 @@
         <li class="nav-item active">
           <h5 class="text-light">Olá {{ user.username }} seja bem vindo </h5>
         </li>
+        <li class="nav-item ">
+          <h5 style= "float:right; width: 90%"><a href="{% url 'wanted' %}">wanted</a></h5>
+        </li>
       </ul>
-      <h5><a href="{% url 'wanted' %}">wanted</a></h5>
       <h5><a href="{% url 'logout' %}">Sair</a></h5>
-
+    </div>
+  </nav>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">

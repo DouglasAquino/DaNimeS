@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete= models.CASCADE, blank= True, null= True)
     nome= models.CharField(max_length= 10, blank= True, null= True)
-    imagem= models.ImageField(upload_to = 'fotosPerfil')
 
     def __str__(self):
         return '{} - {}'.format(self.nome, self.user)
@@ -14,7 +13,7 @@ class Usuario(models.Model):
 
 class Personagem_Risada(models.Model):
     nome= models.CharField(max_length= 15, blank= True, null= True)
-    imagem= models.ImageField(upload_to = 'Pimagem') 
+    imagem= models.ImageField(upload_to = 'Imagem') 
     onomatopeia= models.CharField(max_length= 15, blank= True, null= True)
     risada = models.FileField(upload_to = 'Risada')
 
@@ -31,7 +30,7 @@ class Xp(models.Model):
 
 
 class Op_Anime(models.Model):
-    nome= models.CharField(max_length= 20, blank= True, null= True)
+    nome= models.CharField(max_length= 21, blank= True, null= True)
     opening = models.FileField(upload_to = 'Opening')
 
     def __str__(self):

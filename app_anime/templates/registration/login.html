@@ -15,21 +15,22 @@
             * { margin: 0; padding: 0; font-family:Tahoma; font-size:12pt;}
             #diver { 
                 background-color: transparent; 
-                width: 400px; 
+                width: 350px; 
                 height: 150px; 
                 left: 43%; 
-                margin: -90px 0 0 -130px; 
+                margin: -100px 0 0 -130px; 
                 padding:10px;
                 position: absolute; 
-                top: 60%; }
+                top: 52%; }
             #divCenter { 
-                width: 300px; 
-                height: 80px; 
+                width: 320px; 
+                height: 90px; 
                 left: 47%; 
-                margin: -90px 0 0 -130px; 
-                padding:10px;
+                margin: -100px 0 0 -126px; 
+                padding: 2px;
                 position: absolute; 
-                top: 85%; }
+                top: 74%; }
+                
              body { background-image: url("/media/Pimagem/background.jpg"); }
     </style>
 </head>
@@ -38,24 +39,29 @@
     <div id="diver">
         <img width="400" src="/media/Pimagem/logo-DaNimeS.png">
     </div>
-    
-    
     <div id="divCenter">
-        <div class="card text-white bg-dark" style="max-width: 18rem;">
+        
+        <div class="card text-white bg-dark">
+            <div class="header">
+            <h4 style="padding-top: 3%; font-weight: 550; float:right; width: 60%">Login</h4>
+            </div>
             <div class="card-body">
                 <div id="login-row" class="row justify-content-center">
                     <div id="login-row" class="col-md">
-                        <form action="." method="post">  
+                        
+                        <form action="." method="post">
+
+                            <center>
                             {% csrf_token %}
                             {{ form.as_p }}
-    
-                            <center><input type="image" src="/media/Pimagem/botao_entrar.png" width="65">
-                                <a href="{% url 'cadastrar' %}"><img src="/media/Pimagem/botao_cadastrar.png"
-                                        width="70"></a></center>
+                            </center>
+                            
+                            <center><h3><a style="font-weight: 550" href="{% url 'inicial' %}" class="btn btn-dark">Entrar</a>
+                                <a style="font-weight: 550" href="{% url 'cadastrar' %}" class="btn btn-dark">Cadastrar</a></h3></center>
                         </form>
                     </div>
                 </div>
-            </div>
+                        </div>
         </div>
     </div>
     

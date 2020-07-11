@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Quiz_Openings</title>
     <style rel="stylesheet">
         body {
             background-image: url('https://www.cantinadomos.com.br/wp-content/uploads/2018/04/CrunchyrollTV1-CantinaNews1.jpg');
@@ -23,13 +23,16 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <a class="navbar-brand" href="{% url 'inicial' %}"><img src="media/Pimagem/logo-DaNimes.png" width="160"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+
+
+
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -48,16 +51,14 @@
             <div class="col-md-6 offset-md-3">
                 <div class="card text-white bg-danger mb-3" style="max-width: 30rem;" >
                     <div class="card-header">
-                        {%  for i in OP%}
-                        <h6 style="padding-top: 6%; font-weight: 550; color: white;">Title: {{i.nome}}</h6>
+                        <h6 style="padding-top: 6%; font-weight: 550; color: white;">Title: {{OP.nome}}</h6>
                     <div class="card-body">
                         <div id="play" class= 'center'>
                             <audio controls style="padding-top: 1%;">
-                                <source src="{{ i.opening.url }}" type="audio/mp3" >
+                                <source src="{{ OP.opening.url }}" type="audio/mp3" >
                             </audio>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
 
             </div>
@@ -65,7 +66,8 @@
     </div>
  
    
-    
+
+    <h1>VRAUUUU {{ Ma }}</h1>
 
 
 

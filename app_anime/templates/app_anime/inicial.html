@@ -15,12 +15,15 @@
     {% if user.is_authenticated %}
       <div id="barra">
         <img src="media/Pimagem/logo-DaNimes.png" width="200">
-        <div id="botao"><a href="{% url 'logout' %}"><img src="media/Pimagem/botao_sair.png" width="50"></a></div>
+        <div id="botao"><a href="{% url 'logout' %}"><img src="media/Pimagem/botao_sair.png" width="50"></a>
+        <a href="{% url 'wanted' %}"><img src="/media/Pimagem/botao_wanted.png" width="60"></a></div>
+
       </div>
       <div id="usuario"><font color="white">Bem Vindo(a) {{user.username}} - seus pontos: {{usuario.xp}}</font></div>
     {%else%}
       <div id="barra"><center><img src="media/Pimagem/logo-DaNimes.png" width="200">
-      <a href="{% url 'login' %}"><img src="media/Pimagem/botao_entrar.png" width="60"></a></div>
+      <a href="{% url 'login' %}"><img src="media/Pimagem/botao_entrar.png" width="60"></a>
+      <a href="{% url 'wanted' %}"><img src="media/Pimagem/botao_wanted.png" width="60"></a></div>
     {%endif%}
     <div id="jogo">
       <div id="base">

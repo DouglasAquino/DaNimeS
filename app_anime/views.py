@@ -4,6 +4,7 @@ from .forms import *
 from django.contrib.auth.hashers import make_password
 from audioop import reverse
 from random import randint
+from django.db.models import Max
 
 def inicial(request):
     perso=Personagem_Risada.objects.all()
@@ -53,5 +54,42 @@ def quiz_risadas(request):
 
 
 def quiz_Op(request):
-    openings = Op_Anime.objects.all()
-    return render(request, 'app_anime/quiz_openings.html', {'OP': openings})
+    openings = Op_Anime.objects.get(pk = 4)
+    sla= maiores()
+    return render(request, 'app_anime/quiz_openings.html', {'OP': openings, 'Ma': sla})
+
+def wanted(request):
+    if request.user.is_authenticated:
+        usuario=Usuario.objects.filter(user=request.user)
+        if usuario.exists():
+            usuario=Usuario.objects.get(nome=request.user)
+            xp=Xp.objects.get(usuario=usuario)
+            #maiores=Maiores()
+            return render(request, 'app_anime/wanted.html', {'xp':xp,'maiores':maiores})
+        else:
+            return HttpResponse('ERROR!!')
+    else:
+        return render(request, 'app_anime/erro_autenticacao.html')
+
+def maiores():
+    todos= list(Xp.objects.all())
+    lista= []
+    for i in todos:
+        lista.append(i.qt_pontos)
+
+    listaM= []
+    cont=0
+    maior=0
+    while len(lista) !=0 :
+        for x in lista:
+            if x>maior:
+                maior= x    
+                print(maior)
+        maiores= Xp.objects.filter(qt_pontos= maior)
+        listaM.append(maiores[0])
+        if maior in lista:
+            lista.remove(maior)
+
+        maior=0
+      
+    return listaM

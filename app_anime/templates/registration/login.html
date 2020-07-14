@@ -49,14 +49,14 @@
                 <div id="login-row" class="row justify-content-center">
                     <div id="login-row" class="col-md">
                         
-                        <form action="." method="post">
+                        <form action="." method="POST">
 
                             <center>
                             {% csrf_token %}
                             {{ form.as_p }}
                             </center>
                             
-                            <center><h3><a style="font-weight: 550" href="{% url 'inicial' %}" class="btn btn-dark">Entrar</a>
+                            <center><h3><input style="font-weight: 550" class="btn btn-dark" value= "Entrar" type="submit">
                                 <a style="font-weight: 550" href="{% url 'cadastrar' %}" class="btn btn-dark">Cadastrar</a></h3></center>
                         </form>
                     </div>

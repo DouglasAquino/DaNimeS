@@ -13,11 +13,12 @@
     <title>Quiz_Openings</title>
     <style rel="stylesheet">
         body {
-            background-image: url('https://www.cantinadomos.com.br/wp-content/uploads/2018/04/CrunchyrollTV1-CantinaNews1.jpg');
+            background-image: url('/media/Pimagem/quizOp_bg.png');
             height: 100%;
             background-repeat: no-repeat;
             background-size: cover;
         }
+		#botoes{background-color: transparent; position: absolute; top: 50%; left: 25%;}
     </style>
 
 </head>
@@ -38,7 +39,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     {% if user.is_authenticated %}
-                        <h5 class="text-light" >Olá {{ user.username }} seja bem vindos!</h5>
+                        <h5 class="text-light" >{{ user.username }} - xp atual: {{xp.qt_pontos}}</h5>
                     {% endif %}
                 </li>
             </ul>
@@ -51,8 +52,8 @@
             <div class="col-md-6 offset-md-3">
                 <div class="card text-white bg-danger mb-3" style="max-width: 30rem;" >
                     <div class="card-header">
-                        <h6 style="padding-top: 6%; font-weight: 550; color: white;">Title: {{OP.nome}}</h6>
-                    <div class="card-body">
+                        <h4 style="padding-top: 6%; font-weight: 550; color: white;"><center>ADIVINHE O NOME DO ANIME</h4>
+                    <div class="card-body"><center>
                         <div id="play" class= 'center'>
                             <audio controls style="padding-top: 1%;">
                                 <source src="{{ OP.opening.url }}" type="audio/mp3" >
@@ -64,10 +65,27 @@
             </div>
         </div>
     </div>
- 
-   
+	<div class="container">
+        <div class="row" >
+            <div class="col-md-7 offset-md-2" >
+                <div class="card text-white bg-danger mb-3" style="max-width: 40rem;" >
 
-    <h1>VRAUUUU {{ Ma }}</h1>
+                    <div class="card-body" ><center>
+							{%for i in botoes%}
+								{%if i == OP.nome%}
+									<a style="font-weight: 550" href="{% url 'acertou' %}" class="btn btn-dark">{{i}}</a>
+								{%else%}
+									<a style="font-weight: 550" href="{% url 'inicial' %}" class="btn btn-dark">{{i}}</a>
+								{%endif%}
+							{%endfor%}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 
 
 

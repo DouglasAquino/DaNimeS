@@ -17,15 +17,14 @@
             top: 0%; }
     </style>
 </head>
+
 <body>
-    <div id="Centro">
-        <font color="white">
-        <form action="{% url 'cadastrar' %}" method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Salvar">
-        </form>
-        </font><a href="{% url 'inicial'%}"><input type="button" onclick=Alerta value="Voltar"></a>
-    </div>
+    <form action="{% url 'cadastrar' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Salvar">
+    </form>
+
 </body>
+
 </html>

@@ -1,8 +1,9 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, reverse
 from .models import *
-from .forms import *
+from .forms import CadastrarForm
 from django.contrib.auth.hashers import make_password
-from audioop import reverse
+from django.contrib.auth.models import User
+from django.http import HttpResponse, Http404
 from random import randint
 from django.db.models import Max
 
@@ -11,21 +12,31 @@ def inicial(request):
     return render(request, 'app_anime/inicial.html', {'perso': perso})
 
 def cadastrar(request):
-    if request.method=="GET":
-        form=CadastrarForm()
-        return render(request, 'app_anime/Cadastrar.html', {'form':form})
+    if request.method == 'GET':
+        form = CadastrarForm()
+        return render(request, 'app_anime/cadastrar.html', {'form': form})
 
-    elif request.method=="POST":
-        user=User()
-        user.username=request.POST['nome']
-        user.password=make_password(request.POST['senha'])
-        user.save()
+    elif request.method == 'POST':
+        try:
+            usuario = User()
+            usuario.username = request.POST['username']
+            usuario.password = make_password(request.POST['senha'])
+            usuario.save()
+            
+            jogador = Usuario()
+            jogador.nome = request.POST['username']
+            jogador.user = usuario
+            jogador.save()
 
-        usuario=Usuario()
-        usuario.nome=request.POST['nome']
-        usuario.user=user
-        usuario.save()
-        return redirect(reverse, 'inicial')
+            xp= Xp()
+            xp.usuario = jogador
+            xp.qt_pontos = 0
+            xp.save()
+
+        except Exception:
+            return render(request, 'app_anime/User_existente.html')
+
+        return redirect(reverse('login'))
 
 lista=[]
 def gera():
@@ -58,38 +69,36 @@ def quiz_Op(request):
     sla= maiores()
     return render(request, 'app_anime/quiz_openings.html', {'OP': openings, 'Ma': sla})
 
+def Maiores():
+    todos= list(Xp.objects.all())
+    pontos= []
+    for i in todos:
+        pontos.append(i.qt_pontos)
+    crescente=sorted(pontos)
+    top=[]
+    decre=[]
+    for k in crescente:
+        decre.insert(0,k)
+    for z in range(10):
+        if z >= len(decre):
+            break
+        top.append(decre[z])
+    rank=[]
+    for i in top:
+        for x in todos:
+            if i == x.qt_pontos and x not in rank:
+                rank.append(x)    
+
+    return rank
+
 def wanted(request):
     if request.user.is_authenticated:
         usuario=Usuario.objects.filter(user=request.user)
         if usuario.exists():
             usuario=Usuario.objects.get(nome=request.user)
-            xp=Xp.objects.get(usuario=usuario)
-            #maiores=Maiores()
-            return render(request, 'app_anime/wanted.html', {'xp':xp,'maiores':maiores})
+            if Xp.objects.filter(usuario=usuario):
+                xp=Xp.objects.get(usuario=usuario)
+            maiores=Maiores()
+            return render(request, 'app_anime/wanted.html', {'xp':xp,'usuario':usuario,'lista':maiores})
         else:
             return HttpResponse('ERROR!!')
-    else:
-        return render(request, 'app_anime/erro_autenticacao.html')
-
-def maiores():
-    todos= list(Xp.objects.all())
-    lista= []
-    for i in todos:
-        lista.append(i.qt_pontos)
-
-    listaM= []
-    cont=0
-    maior=0
-    while len(lista) !=0 :
-        for x in lista:
-            if x>maior:
-                maior= x    
-                print(maior)
-        maiores= Xp.objects.filter(qt_pontos= maior)
-        listaM.append(maiores[0])
-        if maior in lista:
-            lista.remove(maior)
-
-        maior=0
-      
-    return listaM

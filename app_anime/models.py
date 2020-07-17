@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 class Usuario(models.Model):
     user = models.ForeignKey(User, on_delete= models.CASCADE, blank= True, null= True)
     nome= models.CharField(max_length= 10, blank= True, null= True)
-    imagem = models.ImageField(upload_to = 'fotPerfil', blank= True, null= True )
+    imagem = models.ImageField(upload_to = 'fotoPerfil', blank= True, null= True )
 
     def __str__(self):
         return '{} - {}'.format(self.nome, self.user)

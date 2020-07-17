@@ -14,7 +14,7 @@ SECRET_KEY = 'ie(p_htc(m6c+wi+n6tnfd_dbix43!3inih=+f8y=9(xp9ns$o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.111','localhost']
 
 
 # Application definition

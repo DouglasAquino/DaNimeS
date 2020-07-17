@@ -1,25 +1,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>DaNimeS</title>
     <style>#name{display: inline-block; padding: 20px; width: 250px;}
            #play{display: inline-block;}
            #usuario{background-color: transparent; width: 700; heigth: 20; left: 15%; position: absolute; top: 5%;}
-           #botao{background-color: transparent; width: 700; heigth: 20; left: 20%; position: absolute; top: 58%;}
+           #botao{background-color: transparent; width: 700; heigth: 20; left: 20%; position: absolute; top: 30%;}
             body { background-image: url("media/Pimagem/background.jpg"); background-repeat: no-repeat; }
            #barra{background-color: black; width: 1390px; height: 80px; position: absolute; left: 0%; top: 0%;}
            #jogo{background-color: transparent; width: 400; left: 10%; position: absolute; top: 25%;}
            #perfil{background-color: transparent; width: 255; heigth: 200; left: 12%; position: absolute; top: 43%;}
-           #nome{background-color: transparent; width: 255 ; left: 14%; position: absolute; top: 83%;}
-           #xp{background-color: transparent; width: 255 ; left: 15%; position: absolute; top: 91%;}
-           #ranking{background-color: white; width: 255 ; left: 65%; position: absolute; top: 25%;}
+           #nome{background-color: transparent; width: 255 ; left: 14%; position: absolute; top: 81%;}
+           #xp{background-color: transparent; width: 255 ; left: 15%; position: absolute; top: 89%;}
+           #ranking{background-image: url('media/Pimagem/wanted_ranking.jpg'); width: 345px; heigth: 497px; left: 55%; position: absolute; top: 25%;}
+           #dados{background-color: transparent; width: 345px; heigth: 497px; left: 60%; position: absolute; top: 52%;}
     </style>
   </head>
   <body>
     {% if user.is_authenticated %}
       <div id="barra">
-        <img src="media/Pimagem/logo-DaNimes.png" width="200">
-        <div id="botao"><a href="{% url 'inicial' %}"><img src="media/Pimagem/botao_voltar.png" width="50"></a></div>
+        <img src="/media/Pimagem/logo-DaNimes.png" width="200">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a style="font-weight: 550" href="{% url 'inicial' %}" class="btn btn-dark">Voltar</a>
       </div>
       <div id="usuario"><font color="white">{{user.username}}</font></div>
     {%else%}
@@ -27,18 +36,24 @@
       <a href="{% url 'login' %}"><img src="media/Pimagem/botao_entrar.png" width="60"></a>
       <a href="{% url 'login' %}"><img src="media/Pimagem/botao_wanted.png" width="60"></a></div>
     {%endif%}
-    <div id="perfil"><img src="{{xp.usuario.imagem.url}}" width="300"></div>
+	{%if usuario.imagem %}
+		<div id="perfil"><img src="{{usuario.imagem.url}}" width="300"></div>
+	{%else%}
+		<div id="perfil"><img src="/media/Pimagem/semperfil.png" width="300"></div>
+	{%endif%}
     <div id="jogo">
       <div id="base">
-        <img src="media/Pimagem/wanted.png">
+        <img src="/media/Pimagem/wanted.png">
       </div>
     </div>
-    <div id="nome"><font size=10px>{{xp.usuario.nome}}</font></div>
+    <div id="nome"><font size=10px>{{usuario.nome}}</font></div>
     <div id="xp"><font size=10px>{{xp.qt_pontos}}.000</font></div>
-    <div id='ranking'>
-        {%for i in lista%}
-            <p><li>{{i.usuario.nome}}-{{i.qt_pontos}}</li></p>
-        {%endfor%}
-    </div>
+    <div id="ranking"><img src="/media/Pimagem/wanted_ranking.jpg" width="350"></div>
+    <div id="dados">
+        <h4>Top 10 recompensas</h4>
+          {%for i in lista%}
+              <b>user:</b> {{i.usuario.nome}}<b> - ฿ </b>{{i.qt_pontos}}.000<br>
+          {%endfor%}
+        </div>
   </body>
 </html>

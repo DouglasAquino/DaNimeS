@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <!-- Required meta tags -->
@@ -21,7 +21,7 @@
                 margin: -100px 0 0 -130px; 
                 padding:10px;
                 position: absolute; 
-                top: 52%; }
+                top: 32%; }
             #divCenter { 
                 width: 320px; 
                 height: 90px; 
@@ -29,39 +29,85 @@
                 margin: -100px 0 0 -126px; 
                 padding: 2px;
                 position: absolute; 
-                top: 74%; }
+                top: 54%; }
                 
-             body { background-image: url("/media/Pimagem/background.jpg"); }
+            #diver2 { 
+                background-color: transparent; 
+                width: 300px; 
+                left: 0%;  
+                position: absolute; 
+                top: 15%; }
+            #divCenter2 { 
+                width: 300px; 
+                height: 90px; 
+                left: 8%; 
+                position: absolute; 
+                top: 34%; }
+             body { background-image: url("/media/Pimagem/background.jpg"); background-repeat: no-repeat; background-attachment: fixed; background-position: center; background-size: cover; height: 100%; background-size: cover;}
     </style>
 </head>
 
 <body>
-    <div id="diver">
-        <img width="400" src="/media/Pimagem/logo-DaNimeS.png">
-    </div>
-    <div id="divCenter">
-        
-        <div class="card text-white bg-dark">
-            <div class="header">
-            <h4 style="padding-top: 3%; font-weight: 550; float:right; width: 60%">Login</h4>
-            </div>
-            <div class="card-body">
-                <div id="login-row" class="row justify-content-center">
-                    <div id="login-row" class="col-md">
-                        
-                        <form action="." method="POST">
-
-                            <center>
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            </center>
-                            
-                            <center><h3><input style="font-weight: 550" class="btn btn-dark" value= "Entrar" type="submit">
-                                <a style="font-weight: 550" href="{% url 'cadastrar' %}" class="btn btn-dark">Cadastrar</a></h3></center>
-                        </form>
-                    </div>
+    <div class="d-none d-sm-block">
+        <div id="diver">
+            <a href="{% url 'inicial' %}">
+            <img width="400" src="/media/Pimagem/logo-DaNimeS.png"> </a>
+        </div>
+        <div id="divCenter">
+            
+            <div class="card text-white bg-dark">
+                <div class="header">
+                <h4 style="padding-top: 3%; font-weight: 550; float:right; width: 60%">Login</h4>
                 </div>
+                <div class="card-body">
+                    <div id="login-row" class="row justify-content-center">
+                        <div id="login-row" class="col-md">
+                            
+                            <form action="." method="POST">
+
+                                <center>
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                </center>
+                                
+                                <center><h3><input style="font-weight: 550" class="btn btn-dark" value= "Entrar" type="submit">
+                                    <a style="font-weight: 550" href="{% url 'cadastrar' %}" class="btn btn-dark">Cadastrar</a></h3></center>
+                            </form>
                         </div>
+                    </div>
+                            </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-block d-sm-none">
+        <div id="diver2">
+            <a href="{% url 'inicial' %}">
+            <img width="350" src="/media/Pimagem/logo-DaNimeS.png"> </a>
+        </div>
+        <div id="divCenter2">
+            
+            <div class="card text-white bg-dark">
+                <div class="header">
+                <h4 style="padding-top: 3%; font-weight: 550; float:right; width: 60%">Login</h4>
+                </div>
+                <div class="card-body">
+                    <div id="login-row" class="row justify-content-center">
+                        <div id="login-row" class="col-md">
+                            
+                            <form action="." method="POST">
+
+                                <center>
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                </center>
+                                
+                                <center><h3><input style="font-weight: 550" class="btn btn-dark" value= "Entrar" type="submit">
+                                    <a style="font-weight: 550" href="{% url 'cadastrar' %}" class="btn btn-dark">Cadastrar</a></h3></center>
+                            </form>
+                        </div>
+                    </div>
+                            </div>
+            </div>
         </div>
     </div>
     

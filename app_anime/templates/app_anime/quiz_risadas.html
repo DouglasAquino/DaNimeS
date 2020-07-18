@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <!-- Required meta tags -->
@@ -57,38 +57,38 @@
 </head>
 <body>
     {% if user.is_authenticated %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-        <a class="navbar-brand" href="{% url 'inicial' %}"><img src="media/Pimagem/logo-DaNimes.png" width="160"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <a class="navbar-brand" href="{% url 'inicial' %}"><img src="media/Pimagem/logo-DaNimes.png" width="160"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    {% if user.is_authenticated %}
-                    <h5 class="text-light">Olá {{ user.username }} seja bem vindos!</h5>
-                    {% endif %}
-                </li>
-            </ul>
-            <h5><a href="{% url 'inicial' %}">Voltar  </a> <a href="{% url 'logout' %}">Sair</a></h5>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        {% if user.is_authenticated %}
+                        <h5 class="text-light">Olá {{ user.username }} seja bem vindos!</h5>
+                        {% endif %}
+                    </li>
+                </ul>
+                <h5><a href="{% url 'inicial' %}">Voltar  </a> <a href="{% url 'logout' %}">Sair</a></h5>
+            </div>
+        </nav>
+        <table border='1'>
+            <td id="risada">
+                <center>
+                    <font size="60">{{perso.onomatopeia }}
+            </td>
+            <div id="play"><audio src="{{ perso.risada.url }}" controls="controls">
+                    Your browser does not support the audio element.
+                </audio></div>
+        </table>
+        <div id="botoes">
+            {% for i in botoes %}
+            <input type="submit" value="{{i}}">
+            {%endfor%}
         </div>
-    </nav>
-    <table border='1'>
-        <td id="risada">
-            <center>
-                <font size="60">{{perso.onomatopeia }}
-        </td>
-        <div id="play"><audio src="{{ perso.risada.url }}" controls="controls">
-                Your browser does not support the audio element.
-            </audio></div>
-    </table>
-    <div id="botoes">
-        {% for i in lista %}
-        <input type="submit" value="{{i.nome}}">
-        {%endfor%}
-    </div>
     {% endif %}
 
     <!-- Optional JavaScript -->

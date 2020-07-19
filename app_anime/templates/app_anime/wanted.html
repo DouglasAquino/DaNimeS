@@ -2,58 +2,100 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <title>DaNimeS</title>
-    <style>#name{display: inline-block; padding: 20px; width: 250px;}
-           #play{display: inline-block;}
-           #usuario{background-color: transparent; width: 700; heigth: 20; left: 15%; position: absolute; top: 5%;}
+    <style>#usuario{background-color: transparent; width: 700; heigth: 20; left: 15%; position: absolute; top: 5%;}
            #botao{background-color: transparent; width: 700; heigth: 20; left: 20%; position: absolute; top: 30%;}
-            body { background-image: url("media/Pimagem/background.jpg"); background-repeat: no-repeat; }
+            body { background-image: url("media/Pimagem/background.jpg"); background-repeat: no-repeat; background-attachment: fixed; background-position: center; background-size: cover; height: 100%; background-size: cover;}
            #barra{background-color: black; width: 1390px; height: 80px; position: absolute; left: 0%; top: 0%;}
-           #jogo{background-color: transparent; width: 400; left: 10%; position: absolute; top: 25%;}
-           #perfil{background-color: transparent; width: 255; heigth: 200; left: 12%; position: absolute; top: 43%;}
-           #nome{background-color: transparent; width: 255 ; left: 14%; position: absolute; top: 81%;}
-           #xp{background-color: transparent; width: 255 ; left: 15%; position: absolute; top: 89%;}
-           #ranking{background-image: url('media/Pimagem/wanted_ranking.jpg'); width: 345px; heigth: 497px; left: 55%; position: absolute; top: 25%;}
-           #dados{background-color: transparent; width: 345px; heigth: 497px; left: 60%; position: absolute; top: 52%;}
+           #jogo{background-color: transparent; width: 300; left: 15%; position: absolute; top: 25%;}
+           #perfil{background-color: transparent; width: 255; heigth: 200; left: 32; position: absolute; top: 95%;}
+           #nome{background-color: transparent; width: 255 ; left: 15%; position: absolute; top: 65%;}
+           #xp{background-color: transparent; width: 255 ; left: 22%; position: absolute; top: 75%;}
+           #ranking{background-image: url('media/Pimagem/wanted_ranking.jpg'); width: 345px; heigth: 497px; left: 55%; position: absolute; top: -85%;}
+           #ranking2{background-image: url('media/Pimagem/wanted_ranking.jpg'); width: 345px; heigth: 497px; left: 55%; position: absolute; top: -85%;}
+           #dados{background-color: transparent; width: 200px; heigth: 497px; left: 70%; position: absolute; top: 280%;}
+           #dados2{background-color: transparent; width: 200px; heigth: 497px; left: 170%; position: absolute; top: 280%;}
+           #conteiner{background-color: transparent; position: absolute; top: 110%; left: -2%;}
     </style>
   </head>
   <body>
-    {% if user.is_authenticated %}
-      <div id="barra">
-        <img src="/media/Pimagem/logo-DaNimes.png" width="200">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a style="font-weight: 550" href="{% url 'inicial' %}" class="btn btn-dark">Voltar</a>
-      </div>
-      <div id="usuario"><font color="white">{{user.username}}</font></div>
-    {%else%}
-      <div id="barra"><center><img src="media/Pimagem/logo-DaNimes.png" width="200" heigth="200">
-      <a href="{% url 'login' %}"><img src="media/Pimagem/botao_entrar.png" width="60"></a>
-      <a href="{% url 'login' %}"><img src="media/Pimagem/botao_wanted.png" width="60"></a></div>
-    {%endif%}
-	{%if usuario.imagem %}
-		<div id="perfil"><img src="{{usuario.imagem.url}}" width="300"></div>
-	{%else%}
-		<div id="perfil"><img src="/media/Pimagem/semperfil.png" width="300"></div>
-	{%endif%}
-    <div id="jogo">
-      <div id="base">
-        <img src="/media/Pimagem/wanted.png">
-      </div>
-    </div>
-    <div id="nome"><font size=10px>{{usuario.nome}}</font></div>
-    <div id="xp"><font size=10px>{{xp.qt_pontos}}.000</font></div>
-    <div id="ranking"><img src="/media/Pimagem/wanted_ranking.jpg" width="350"></div>
-    <div id="dados">
-        <h4>Top 10 recompensas</h4>
-          {%for i in lista%}
-              <b>user:</b> {{i.usuario.nome}}<b> - ฿ </b>{{i.qt_pontos}}.000<br>
-          {%endfor%}
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <a class="navbar-brand" href="{% url 'inicial' %}"><img src="media/Pimagem/logo-DaNimes.png" width="160"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" href="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <h5 class="text-light">{{ user.username }}</h5>
+            </li>
+          </ul>
+              <h5><a href="{% url 'logout' %}">Sair</a></h5>
         </div>
+      </nav>
+    <div class="container">
+          <div class="row" >
+              <div class="col-md-0 offset-md-0">
+                  <div class="card text-black border-0 bg-transparent mb-0" style="max-width: 30rem;" >
+                      <div class="card-body">
+                          {%if usuario.imagem %}
+                            <div id="perfil"><img src="{{usuario.imagem.url}}" width="300"></div>
+                          {%else%}
+                            <div id="perfil"><img src="/media/Pimagem/semperfil.png" width="300"></div>
+                          {%endif%}
+                            <div id="jogo">
+                              <div id="base">
+                                <img src="/media/Pimagem/wanted.png">
+                                <div id="nome"><font size=10px>{{usuario.nome}}</font></div>
+                                <div id="xp"><font size=10px>{{xp.qt_pontos}}.000</font></div>
+                              </div>
+                            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+    <div class="d-none d-sm-block"> 
+          <div class="col-md-0 offset-md-3">
+              <div class="card text-black border-0 bg-transparent mb-2" style="max-width: 20rem;" >
+                  <div class="card-body">
+                      <div id="ranking"><img src="/media/Pimagem/wanted_ranking.jpg" width="350"></div>
+                      <div id="dados">
+                          <h4>Top 10 recompensas</h4>
+                            {%for i in lista%}
+                                <b>user:</b> {{i.usuario.nome}}<b> - ฿ </b>{{i.qt_pontos}}.000<br>
+                            {%endfor%}
+                          </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  <div id="conteiner" class="d-block d-sm-none"> 
+          <div class="col-md-0  offset-md-0">
+              <div class="card text-black bg-transparent border-0 mb-0" style="max-width: 20rem;" >
+                  <div class="card-body">
+                      <div id="ranking2"><img src="/media/Pimagem/wanted_ranking.jpg" width="350"></div>
+                      <div id="dados2">
+                          <h4>Top 10 recompensas</h4>
+                            {%for i in lista%}
+                                <b>user:</b> {{i.usuario.nome}}<b> - ฿ </b>{{i.qt_pontos}}.000<br>
+                            {%endfor%}
+                          </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
   </body>
 </html>

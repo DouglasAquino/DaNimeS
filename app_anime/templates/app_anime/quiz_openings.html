@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <!-- Required meta tags -->
@@ -14,13 +14,18 @@
     <style rel="stylesheet">
         body {
             background-image: url('/media/Pimagem/quizOp_bg.png');
+			background-attachment: fixed;
+			 background-position: center;
+			 background-size: cover;
             height: 100%;
             background-repeat: no-repeat;
             background-size: cover;
         }
 		#botoes{background-color: transparent; position: absolute; top: 50%; left: 25%;}
     </style>
-
+	<script>
+    function Alerta(){alert("Opa você errou!");}
+    </script>
 </head>
 
 <body>
@@ -31,10 +36,6 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-
-
-
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -43,7 +44,9 @@
                     {% endif %}
                 </li>
             </ul>
-            <h5><a href="{% url 'inicial' %}">Voltar</a> <a href="{% url 'logout' %}">Sair</a></h5>
+            <h5><a style="font-weight: 550" href="{% url 'inicial' %}" class="btn btn-red">Voltar</a>
+                <a style="font-weight: 550" href="{% url 'inicial' %}" class="btn btn-red">Quiz de Risadas</a>
+                <a style="font-weight: 550" href="{% url 'wanted' %}" class="btn btn-red">Meus Pontos</a>
         </div>
     </nav>
 
@@ -73,9 +76,9 @@
                     <div class="card-body" ><center>
 							{%for i in botoes%}
 								{%if i == OP.nome%}
-									<a style="font-weight: 550" href="{% url 'acertou' %}" class="btn btn-dark">{{i}}</a>
+									<a style="font-weight: 550" href="{% url 'acertou' %}" class="btn btn-red">{{i}}</a>
 								{%else%}
-									<a style="font-weight: 550" href="{% url 'inicial' %}" class="btn btn-dark">{{i}}</a>
+									<a style="font-weight: 550" href="{% url 'inicial' %}" onclick="Alerta()" class="btn btn-red">{{i}}</a>
 								{%endif%}
 							{%endfor%}
                     </div>

@@ -38,51 +38,74 @@ def cadastrar(request):
 
         return redirect(reverse('login'))
 
-lista=[]
-def gera():
-    listaP=Personagem_Risada.objects.all()
-    x = randint(0,len(listaP)-1)
-    perso=Personagem_Risada.objects.filter(pk=x)
-    if perso.exists():
-        personagem=Personagem_Risada.objects.get(pk=x)
-        lista.append(personagem)
-        return personagem
-    else:
-        gera()
+def gerabtns_ri(indice):
+    botoes=[]
+    if Personagem_Risada.objects.filter(pk=indice):
+        certo=Personagem_Risada.objects.get(pk=indice)
+        botoes.append(certo.nome)
+        lista=Personagem_Risada.objects.all()
+        pks=[]
+        for i in lista:
+            pks.append(i.pk)
 
+        
+        while len(botoes)!= 4:
+            for k in pks:
+                if Personagem_Risada.objects.filter(pk=k):
+                    errado=Personagem_Risada.objects.get(pk=k)
+                    if errado.nome not in botoes:
+                        botoes.append(errado.nome)
+                        break
+                    
+        
+        botoes.sort()
+    
+        return botoes
+
+global risada
+def sorteia_Ri(cont):
+    global risada
+    risada=[]
+    if cont >=4:
+        risada=[]
+    lista=list(Personagem_Risada.objects.all())
+    pk=randint(1,len(lista))
+    if pk not in risada:
+        if Personagem_Risada.objects.filter(pk=pk):
+            risada.append(pk)
+            return pk
+        else:
+            cont+=1
+            sorteia_Ri(cont)
+    else:
+        cont+=1
+        sorteia_Ri(cont)
 
 def quiz_risadas(request):
-    perso=gera()
-    lista_botoes=[]
-    tudo=Personagem_Risada.objects.all()
-    cont=0
-    for i in tudo:
-        lista_botoes.append(i)
-        cont+=1
-        if cont == 4:
-            break
-    return render(request, 'app_anime/quiz_risadas.html', {'perso': perso, 'lista':lista_botoes})
+    usuario=Usuario.objects.get(user=request.user)
+    indice=sorteia_Ri(0)
+    perso=Personagem_Risada.objects.get(pk=indice)
+    botoes=gerabtns_ri(indice)
+    return render(request, 'app_anime/quiz_risadas.html', {'perso': perso, 'usuario':usuario, 'botoes':botoes})
 
 global openings
-def sorteia_OP(cont):
+openings=[]
+def sorteia_OP():
     global openings
-    openings=[]
-    if cont >=4:
-        openings=[]
     lista=list(Op_Anime.objects.all())
+    if len(openings) == len(lista):
+        openings=[]
     pk=randint(1,len(lista))
     if pk not in openings:
         if Op_Anime.objects.filter(pk=pk):
             openings.append(pk)
             return pk
         else:
-            cont+=1
             sorteia_OP(cont)
     else:
-        cont+=1
         sorteia_OP(cont)
 
-def gerabtns(indice):
+def gerabtns_OP(indice):
     botoes=[]
     if Op_Anime.objects.filter(pk=indice):
         certo=Op_Anime.objects.get(pk=indice)
@@ -106,8 +129,8 @@ def gerabtns(indice):
         return botoes
 
 def quiz_Op(request):
-    indice=sorteia_OP(0)
-    botoes=gerabtns(indice)
+    indice=sorteia_OP()
+    botoes=gerabtns_OP(indice)
     ope = Op_Anime.objects.get(pk = indice)
     xp=Xp.objects.get(usuario__nome=request.user)
     return render(request, 'app_anime/quiz_openings.html', {'OP': ope,'botoes':botoes,'xp':xp})

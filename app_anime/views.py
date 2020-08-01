@@ -4,7 +4,7 @@ from .forms import CadastrarForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404
-from random import randint
+from random import randint, shuffle
 from django.db.models import Max
 
 def inicial(request):
@@ -38,6 +38,40 @@ def cadastrar(request):
 
         return redirect(reverse('login'))
 
+def wanted(request):
+    if request.user.is_authenticated:
+        usuario=Usuario.objects.filter(user=request.user)
+        if usuario.exists():
+            usuario=Usuario.objects.get(nome=request.user)
+            if Xp.objects.filter(usuario=usuario):
+                xp=Xp.objects.get(usuario=usuario)
+            maiores=Maiores()
+            return render(request, 'app_anime/wanted.html', {'xp':xp,'usuario':usuario,'lista':maiores})
+        else:
+            return HttpResponse('ERROR!!')
+
+def Maiores():
+    todos= list(Xp.objects.all())
+    pontos= []
+    for i in todos:
+        pontos.append(i.qt_pontos)
+    crescente=sorted(pontos)
+    top=[]
+    decre=[]
+    for k in crescente:
+        decre.insert(0,k)
+    for z in range(10):
+        if z >= len(decre):
+            break
+        top.append(decre[z])
+    rank=[]
+    for i in top:
+        for x in todos:
+            if i == x.qt_pontos and x not in rank:
+                rank.append(x)    
+
+    return rank
+    
 def gerabtns_ri(indice):
     botoes=[]
     if Personagem_Risada.objects.filter(pk=indice):
@@ -92,20 +126,22 @@ global openings
 openings=[]
 def sorteia_OP():
     global openings
+    todosPk= []
     lista=list(Op_Anime.objects.all())
-    if len(openings) == len(lista):
-        openings=[]
-    pk=randint(1,len(lista))
-    if pk not in openings:
-        if Op_Anime.objects.filter(pk=pk):
-            openings.append(pk)
-            return pk
-        else:
-            sorteia_OP(cont)
-    else:
-        sorteia_OP(cont)
 
-def gerabtns_OP(indice):
+    for i in lista:
+        todosPk.append(i.pk)
+        shuffle(todosPk)
+    
+    for i in todosPk:      
+        if i not in openings:
+            if Op_Anime.objects.filter(pk=i):
+                openings.append(i)
+                return i
+            else:
+                sorteia_OP()
+            
+def gerabtns_Op(indice):
     botoes=[]
     if Op_Anime.objects.filter(pk=indice):
         certo=Op_Anime.objects.get(pk=indice)
@@ -114,7 +150,6 @@ def gerabtns_OP(indice):
         pks=[]
         for i in lista:
             pks.append(i.pk)
-
         
         while len(botoes)!= 4:
             k=randint(0,len(pks))
@@ -122,60 +157,80 @@ def gerabtns_OP(indice):
                 errado=Op_Anime.objects.get(pk=k)
                 if errado.nome not in botoes:
                     botoes.append(errado.nome)
-                    
-        
+                     
         botoes.sort()
     
         return botoes
-
+ 
 def quiz_Op(request):
-    indice=sorteia_OP()
-    botoes=gerabtns_OP(indice)
+    indice= sorteia_OP()
+    botoes= gerabtns_Op(indice)
     ope = Op_Anime.objects.get(pk = indice)
     xp=Xp.objects.get(usuario__nome=request.user)
-    return render(request, 'app_anime/quiz_openings.html', {'OP': ope,'botoes':botoes,'xp':xp})
+    return render(request, 'app_anime/quiz_openings.html', {'OP': ope, 'botoes':botoes, 'xp':xp})
 
-def Maiores():
-    todos= list(Xp.objects.all())
-    pontos= []
-    for i in todos:
-        pontos.append(i.qt_pontos)
-    crescente=sorted(pontos)
-    top=[]
-    decre=[]
-    for k in crescente:
-        decre.insert(0,k)
-    for z in range(10):
-        if z >= len(decre):
-            break
-        top.append(decre[z])
-    rank=[]
-    for i in top:
-        for x in todos:
-            if i == x.qt_pontos and x not in rank:
-                rank.append(x)    
-
-    return rank
-
-def wanted(request):
+def acertou_Op(request):
     if request.user.is_authenticated:
         usuario=Usuario.objects.filter(user=request.user)
-        if usuario.exists():
-            usuario=Usuario.objects.get(nome=request.user)
-            if Xp.objects.filter(usuario=usuario):
-                xp=Xp.objects.get(usuario=usuario)
-            maiores=Maiores()
-            return render(request, 'app_anime/wanted.html', {'xp':xp,'usuario':usuario,'lista':maiores})
-        else:
-            return HttpResponse('ERROR!!')
 
-def acertou(request):
+        if usuario.exists():
+            
+            usuario=Usuario.objects.get(nome=request.user)
+            xp=Xp.objects.get(usuario=usuario)
+            pontuacao= 0
+            qterro= erro(request)
+
+            indice= sorteia_OP()
+            botoes= gerabtns_Op(indice)
+            Op = Op_Anime.objects.get(pk = indice)
+            
+            Opnome = 0
+            for i in botoes:
+                if Op.nome == i:
+                    Opnome= i
+
+            if qterro == 0:
+                    pontuacao= 10
+                
+            elif qterro == 1:
+                    pontuacao= 5
+
+
+            xp.qt_pontos+=pontuacao
+            xp.save()
+
+            return quiz_Op(request)
+
+global cont
+def erro(request):
+    cont = 0
     if request.user.is_authenticated:
         usuario=Usuario.objects.filter(user=request.user)
         if usuario.exists():
             usuario=Usuario.objects.get(nome=request.user)
             xp=Xp.objects.get(usuario=usuario)
-            xp.qt_pontos+=10
+            xp.qt_pontos+=0
             xp.save()
+            cont+=1
+            e = cont
+            cont= 0
+            
+            return e
+        
 
-            return quiz_Op(request)
+
+# def errou_OP(request):
+    # if request.user.is_authenticated:
+        # usuario=Usuario.objects.filter(user=request.user)
+        # if usuario.exists():
+            # usuario=Usuario.objects.get(nome=request.user)
+            # xp=Xp.objects.get(usuario=usuario)
+            # xp.qt_pontos+=5
+            # xp.save()
+
+            
+
+
+
+
+    

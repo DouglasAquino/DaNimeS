@@ -27,7 +27,7 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-      <a class="navbar-brand" href="{% url 'inicial' %}"><img src="media/Pimagem/logo-DaNimes.png" width="160"></a>
+      <a class="navbar-brand" href="{% url 'inicial' %}"><img src="/media/Pimagem/logo-DaNimes.png" width="160"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" href="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" >
         <span class="navbar-toggler-icon"></span>
@@ -36,10 +36,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <h5 class="text-light">{{ user.username }}</h5>
+              <h5 class="text-light">{{ user.username }} - seus pontos: {{xp.qt_pontos}}</h5>
             </li>
           </ul>
-              <h5><a href="{% url 'logout' %}">Sair</a></h5>
+              <h5><a style="font-weight: 550" href="{% url 'logout' %}" class="btn btn-red">sair</a></h5>
         </div>
       </nav>
     <div class="container">

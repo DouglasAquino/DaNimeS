@@ -37,7 +37,7 @@
 <body>
  
     <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-        <a class="navbar-brand" href="{% url 'inicial' %}"><img src="media/Pimagem/logo-DaNimes.png" width="160"></a>
+        <a class="navbar-brand" href="{% url 'inicial' %}"><img src="/media/Pimagem/logo-DaNimes.png" width="160"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -73,24 +73,13 @@
                             <div id="play" class='center'><center>
                                 <audio controls style="padding-top: 1%;">
                                     <source src="{{ OP.opening.url }}" type="audio/mp3">
-                                </audio></center>
- 
+                                </audio><br>
                                 {%for i in botoes%}
- 
-                                {%if i == OP.nome%}
-                                <center>
-                                    <div class="container" style="padding-top: 2%; ">
-                                        <div class="row">
-                                            <div class="col-md-6 offset-md-3">
-                                                <a style="font-weight: 550" href="{% url 'acertou' %}"
-                                                    class="btn btn-dark">{{i}}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </center>
-                                {%else%}
-                                <a style="font-weight: 550" href="{% url 'erro' %}" onclick="Alerta()" class="btn btn-dark">{{i}}</a>
-                                {%endif%}
+                                    {%if i == OP.nome%}
+                                        <a style="font-weight: 550" href="{% url 'acertou' pontos %}" class="btn btn-dark">{{i}}</a>
+                                    {%else%}
+                                        <a style="font-weight: 550" href="{% url 'errou' pontos %}" onclick="Alerta()" class="btn btn-dark">{{i}}</a>
+                                    {%endif%}
                                 {%endfor%}
                             </div>
                         </div>

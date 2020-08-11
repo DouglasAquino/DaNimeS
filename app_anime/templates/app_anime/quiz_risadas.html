@@ -2,95 +2,78 @@
 <html lang="pt-br">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <title>quiz risadas</title>
+    <title>Quiz Risadas</title>
     <style rel="stylesheet">
         body {
-            background-image: url("https://i0.wp.com/livewallpaper.info//wp-content/uploads/2016/11/one-piece-wallpaper-High-Resolution-Download3.jpg?ssl=1");
+            background-image: url('/media/Pimagem/quizRis_bg.jpg');
+			background-attachment: fixed;
+			 background-position: center;
+			 background-size: cover;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-
-        #botoes {
-            background-color: transparent;
-            left: 42%;
-            width: 500px;
-            top: 48%;
-            position: absolute;
-        }
-
-        #trT {
-            background-color: white;
-            filter: alpha(opacity=50);
-            opacity: 0.8;
-        }
-
-        #risada {
-            background-color: white;
-            filter: alpha(opacity=50);
-            opacity: 0.8;
-            left: 35%;
-            width: 500px;
-            top: 18%;
-            position: absolute;
-        }
-
-        #name {
-            display: inline-block;
-            padding: 20px;
-            width: 250px;
-        }
-
-        #play {
-            display: inline-block;
-            position: absolute;
-            left: 42%;
-            width: 500px;
-            top: 35%;
-        }
+		#botoes{background-color: transparent; position: absolute; top: 50%; left: 25%;}
     </style>
+	<script>
+    function Alerta(){alert("Opa você errou!");}
+    </script>
 </head>
+
 <body>
-    {% if user.is_authenticated %}
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-            <a class="navbar-brand" href="{% url 'inicial' %}"><img src="media/Pimagem/logo-DaNimes.png" width="160"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand" href="{% url 'inicial' %}"><img src="/media/Pimagem/logo-DaNimes.png" width="160"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        {% if user.is_authenticated %}
-                        <h5 class="text-light">Olá {{ user.username }} seja bem vindos!</h5>
-                        {% endif %}
-                    </li>
-                </ul>
-                <h5><a href="{% url 'inicial' %}">Voltar  </a> <a href="{% url 'logout' %}">Sair</a></h5>
-            </div>
-        </nav>
-        <table border='1'>
-            <td id="risada">
-                <center>
-                    <font size="60">{{perso.onomatopeia }}
-            </td>
-            <div id="play"><audio src="{{ perso.risada.url }}" controls="controls">
-                    Your browser does not support the audio element.
-                </audio></div>
-        </table>
-        <div id="botoes">
-            {% for i in botoes %}
-            <input type="submit" value="{{i}}">
-            {%endfor%}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    {% if user.is_authenticated %}
+                        <h5 class="text-light" >{{ user.username }} - xp atual: {{xp.qt_pontos}}</h5>
+                    {% endif %}
+                </li>
+            </ul>
+            <h5><a style="font-weight: 550" href="{% url 'inicial' %}" class="btn btn-red">Voltar</a>
+                <a style="font-weight: 550" href="{% url 'quiz_openings' %}" class="btn btn-red">Quiz de Openings</a>
+                <a style="font-weight: 550" href="{% url 'wanted' %}" class="btn btn-red">Ranking</a>
         </div>
-    {% endif %}
+    </nav>
 
+   <div class="container" style="padding-top: 9%;">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card text-white bg-warning mb-3" style="max-width: 40rem;">
+                    <div class="card-header">
+                        <h4 style="padding-top: 6%; font-weight: 550; color: white;">
+                            <center>DE QUEM É ESSA RISADA? <br> {{perso.onomatopeia}}
+                        </h4>
+                        <div class="card-body">
+                            </center>
+                            <div id="play" class='center'><center>
+                                <audio controls style="padding-top: 1%;">
+                                    <source src="{{ perso.risada.url }}" type="audio/mp3">
+                                </audio><br>
+                                {%for i in botoes%}
+                                    {%if i.nome == perso.nome%}
+                                        <a style="font-weight: 550" href="{% url 'acertou_ri' pontos %}" class="btn btn-dark">{{i}}</a>
+                                    {%else%}
+                                        <a style="font-weight: 550" href="{% url 'errou_ri' pontos %}" onclick="Alerta()" class="btn btn-dark">{{i}}</a>
+                                    {%endif%}
+                                {%endfor%}
+                            </div>
+                        </div>
+                    </div>
+ 
+                </div>
+            </div>
+        </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

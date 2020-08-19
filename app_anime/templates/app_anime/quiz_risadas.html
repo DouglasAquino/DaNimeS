@@ -9,7 +9,7 @@
     <title>Quiz Risadas</title>
     <style rel="stylesheet">
         body {
-            background-image: url('/media/Pimagem/quizRis_bg.jpg');
+            background-image: url('/media/Pimagem/quizOp_bg.png');
 			background-attachment: fixed;
 			 background-position: center;
 			 background-size: cover;
@@ -21,6 +21,7 @@
     </style>
 	<script>
     function Alerta(){alert("Opa você errou!");}
+
     </script>
 </head>
 
@@ -52,7 +53,7 @@
                 <div class="card text-white bg-warning mb-3" style="max-width: 40rem;">
                     <div class="card-header">
                         <h4 style="padding-top: 6%; font-weight: 550; color: white;">
-                            <center>DE QUEM É ESSA RISADA? <br> {{perso.onomatopeia}}
+                            <center>𝒟𝐸 𝒬𝒰𝐸𝑀 É 𝐸𝒮𝒮𝒜 𝑅𝐼𝒮𝒜𝒟𝒜?<br> {{perso.onomatopeia}}
                         </h4>
                         <div class="card-body">
                             </center>
@@ -61,8 +62,9 @@
                                     <source src="{{ perso.risada.url }}" type="audio/mp3">
                                 </audio><br>
                                 {%for i in botoes%}
-                                    {%if i.nome == perso.nome%}
+                                    {%if i == perso.nome%}
                                         <a style="font-weight: 550" href="{% url 'acertou_ri' pontos %}" class="btn btn-dark">{{i}}</a>
+                                        
                                     {%else%}
                                         <a style="font-weight: 550" href="{% url 'errou_ri' pontos %}" onclick="Alerta()" class="btn btn-dark">{{i}}</a>
                                     {%endif%}
@@ -74,6 +76,35 @@
                 </div>
             </div>
         </div>
+   </div>
+ 
+   {%for i in botoes%}
+        {%if i == perso.nome%}
+        <img type= "image" src="{{perso.image.url.jpg}}" >
+        {%endif%}
+    {%endfor%}
+
+    <br><br><br><br><br>
+
+    <div class="container bg-dark" style="padding-top: 0%; max-width: 2000px;">
+        <div class="row-md-3">
+            <div class="col-md-0 offset-md-0" style="padding-top: 3%;"><center>
+                <div class="card text-white bg-dark mb-0" style="max-width: 2000px;">
+                    <div class="card-header">
+                    <div class="card-body">
+                            <h4>FEITO DE FÃ PARA FÃ</h4>
+                            COPYRIGHT DANIMES 2020 ~ DESENVOLVIDO POR EQUIPE DANIMES<br>
+                            <a href="https://instagram.com/danimes_01">
+                            <img src="https://image.flaticon.com/icons/png/512/87/87390.png" width="40"></a>
+                            <img src="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1.png" width="40">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, reverse
 from .models import *
-from .forms import CadastrarForm
+from .forms import CadastrarForm, cadastrarF
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404
@@ -13,7 +13,7 @@ def inicial(request):
 
 def cadastrar(request):
     if request.method == 'GET':
-        form = CadastrarForm()
+        form = cadastrarF()
         return render(request, 'app_anime/cadastrar.html', {'form': form})
 
     elif request.method == 'POST':
@@ -26,6 +26,7 @@ def cadastrar(request):
             jogador = Usuario()
             jogador.nome = request.POST['username']
             jogador.user = usuario
+            jogador.imagem = request.POST['imagem']
             jogador.save()
 
             xp= Xp()
@@ -38,6 +39,25 @@ def cadastrar(request):
 
         return redirect(reverse('login'))
 
+global risada
+risada=[]
+def sorteia_Ri():
+    global risada
+    lista=list(Personagem_Risada.objects.all())
+    if len(risada) == len(lista):
+        risada=[]
+        #print('entrou igual')
+    pk=randint(1,len(lista))
+    if pk not in risada:
+        if Personagem_Risada.objects.filter(pk=pk):
+            risada.append(pk)
+            #print('lista: ',risada,'retorno',pk)
+            return pk
+        else:
+            sorteia_Ri()
+    else:
+        sorteia_Ri()
+
 def gerabtns_ri(indice):
     botoes=[]
     if Personagem_Risada.objects.filter(pk=indice):
@@ -47,34 +67,16 @@ def gerabtns_ri(indice):
         pks=[]
         for i in lista:
             pks.append(i.pk)
+
         while len(botoes)!= 4:
-            for k in pks:
-                if Personagem_Risada.objects.filter(pk=k):
-                    errado=Personagem_Risada.objects.get(pk=k)
-                    if errado.nome not in botoes:
-                        botoes.append(errado.nome)
-                        break
+            k=randint(0,len(pks))
+            if Personagem_Risada.objects.filter(pk=k):
+                errado=Personagem_Risada.objects.get(pk=k)
+                if errado.nome not in botoes:
+                    botoes.append(errado.nome)
+                    
         botoes.sort()
         return botoes
-
-global risada
-risada=[]
-def sorteia_Ri():
-    global risada
-    lista=list(Personagem_Risada.objects.all())
-    if len(risada) == len(lista):
-        risada=[]
-        print('entrou igual')
-    pk=randint(1,len(lista))
-    if pk not in risada:
-        if Personagem_Risada.objects.filter(pk=pk):
-            risada.append(pk)
-            print('lista: ',risada,'retorno',pk)
-            return pk
-        else:
-            sorteia_Ri()
-    else:
-        sorteia_Ri()
 
 global lista_errou_ri
 lista_errou_ri=[]
@@ -84,14 +86,49 @@ def quiz_risadas(request):
     indice=None
     while indice == None:
         indice=sorteia_Ri()
-    print(indice)
+    #print(indice)
+    botoes=gerabtns_ri(indice)
     perso=Personagem_Risada.objects.get(pk=indice)
-    botoes=Personagem_Risada.objects.all()
     xp=Xp.objects.get(usuario__nome=request.user)
     pontos=10
     lista_errou_ri=[botoes,perso]
     
     return render(request, 'app_anime/quiz_risadas.html', {'perso':perso,'xp':xp,'botoes':botoes,'pontos':pontos})
+
+def acertou_ri(request,pontos):
+    if request.user.is_authenticated:
+        usuario=Usuario.objects.filter(user=request.user)
+        if usuario.exists():
+            usuario=Usuario.objects.get(nome=request.user)
+            xp=Xp.objects.get(usuario=usuario)
+            xp.qt_pontos+=pontos
+            xp.save()
+
+            return quiz_risadas(request)
+
+def errou_ri(request,pontos):
+    global lista_errou_ri
+    if request.user.is_authenticated:
+        usuario=Usuario.objects.filter(user=request.user)
+        if usuario.exists():
+            if pontos > 0:
+                if pontos == 10:
+                    pontos-=2
+                elif pontos == 8:
+                    pontos-=4
+                elif pontos == 4:
+                    pontos-=3
+                else:
+                    pontos=0
+                    return render(request, 'app_anime/game_over.html', {'text':'VOCÊ ERROU O MAXIMO POSSÍVEL!!'})
+                    
+                usuario=Usuario.objects.get(nome=request.user)
+                botoes=lista_errou_ri[0]
+                ope=lista_errou_ri[1]
+                xp=Xp.objects.get(usuario__nome=request.user)
+                return render(request, 'app_anime/quiz_risadas.html', {'perso': ope,'botoes':botoes,'xp':xp, 'pontos':pontos})
+            else:
+                return redirect('game_over') 
 
 global openings
 openings=[]
@@ -100,12 +137,12 @@ def sorteia_OP():
     lista=list(Op_Anime.objects.all())
     if len(openings) == len(lista):
         openings=[]
-        print('entrou tudo')
+        #print('entrou tudo')
     pk=randint(1,len(lista))
     if pk not in openings:
         if Op_Anime.objects.filter(pk=pk):
             openings.append(pk)
-            print('lista',openings,'retorno',pk)
+            #print('lista',openings,'retorno',pk)
             return pk
         else:
             sorteia_OP()
@@ -122,7 +159,6 @@ def gerabtns_OP(indice):
         for i in lista:
             pks.append(i.pk)
 
-        
         while len(botoes)!= 4:
             k=randint(0,len(pks))
             if Op_Anime.objects.filter(pk=k):
@@ -130,11 +166,8 @@ def gerabtns_OP(indice):
                 if errado.nome not in botoes:
                     botoes.append(errado.nome)
                     
-        
         botoes.sort()
-    
         return botoes
-
 
 global lista_errou
 lista_errou=[]
@@ -144,7 +177,7 @@ def quiz_Op(request):
     indice=None
     while indice == None:
         indice=sorteia_OP()
-    print(indice)
+    #print(indice)
     botoes=gerabtns_OP(indice)
     ope = Op_Anime.objects.get(pk = indice)
     xp=Xp.objects.get(usuario__nome=request.user)
@@ -152,6 +185,44 @@ def quiz_Op(request):
     lista_errou=[botoes,ope]
     
     return render(request, 'app_anime/quiz_openings.html', {'OP': ope,'botoes':botoes,'xp':xp, 'pontos':pontos})
+
+def acertou_op(request,pontos):
+    if request.user.is_authenticated:
+        usuario=Usuario.objects.filter(user=request.user)
+        if usuario.exists():
+            usuario=Usuario.objects.get(nome=request.user)
+            xp=Xp.objects.get(usuario=usuario)
+            xp.qt_pontos+=pontos
+            xp.save()
+
+            return quiz_Op(request)
+
+def errou_op(request,pontos):
+    global lista_errou
+    if request.user.is_authenticated:
+        usuario=Usuario.objects.filter(user=request.user)
+        if usuario.exists():
+            if pontos > 0:
+                if pontos == 10:
+                    pontos-=2
+                elif pontos == 8:
+                    pontos-=4
+                elif pontos == 4:
+                    pontos-=3
+                else:
+                    pontos=0
+                    return errou_op(request,pontos)
+                    
+                usuario=Usuario.objects.get(nome=request.user)
+                botoes=lista_errou[0]
+                ope=lista_errou[1]
+                xp=Xp.objects.get(usuario__nome=request.user)
+                return render(request, 'app_anime/quiz_openings.html', {'OP': ope,'botoes':botoes,'xp':xp, 'pontos':pontos})
+            else:
+                return redirect('game_over')
+
+def game_over(request):
+    return render(request, 'app_anime/game_over.html',{})
 
 def Maiores():
     todos= list(Xp.objects.all())
@@ -187,79 +258,5 @@ def wanted(request):
         else:
             return HttpResponse('ERROR!!')
 
-def acertou(request,pontos):
-    if request.user.is_authenticated:
-        usuario=Usuario.objects.filter(user=request.user)
-        if usuario.exists():
-            usuario=Usuario.objects.get(nome=request.user)
-            xp=Xp.objects.get(usuario=usuario)
-            xp.qt_pontos+=pontos
-            xp.save()
-
-            return quiz_Op(request)
-
-def errou(request,pontos):
-    global lista_errou
-    if request.user.is_authenticated:
-        usuario=Usuario.objects.filter(user=request.user)
-        if usuario.exists():
-            if pontos > 0:
-                if pontos == 10:
-                    pontos-=2
-                elif pontos == 8:
-                    pontos-=4
-                elif pontos == 4:
-                    pontos-=3
-                else:
-                    pontos=0
-                    return errou(request,pontos)
-                    
-                usuario=Usuario.objects.get(nome=request.user)
-                botoes=lista_errou[0]
-                ope=lista_errou[1]
-                xp=Xp.objects.get(usuario__nome=request.user)
-                return render(request, 'app_anime/quiz_openings.html', {'OP': ope,'botoes':botoes,'xp':xp, 'pontos':pontos})
-            else:
-                return redirect('game_over')
-
-def game_over(request):
-    return render(request, 'app_anime/game_over.html',{})
-
-def acertou_ri(request,pontos):
-    if request.user.is_authenticated:
-        usuario=Usuario.objects.filter(user=request.user)
-        if usuario.exists():
-            usuario=Usuario.objects.get(nome=request.user)
-            xp=Xp.objects.get(usuario=usuario)
-            xp.qt_pontos+=pontos
-            xp.save()
-            todas=list(Personagem_Risada.objects.all())
-            global risada
-            if len(risada) == len(todas):
-                risada=[]
-                return render(request, 'app_anime/game_over.html', {'text':'PARABENS VOCÊ ACERTOU TUDO!!'})
-            return quiz_risadas(request)
-
-def errou_ri(request,pontos):
-    global lista_errou_ri
-    if request.user.is_authenticated:
-        usuario=Usuario.objects.filter(user=request.user)
-        if usuario.exists():
-            if pontos > 0:
-                if pontos == 10:
-                    pontos-=2
-                elif pontos == 8:
-                    pontos-=4
-                elif pontos == 4:
-                    pontos-=3
-                else:
-                    pontos=0
-                    return render(request, 'app_anime/game_over.html', {'text':'VOCÊ ERROU O MAXIMO POSSÍVEL!!'})
-                    
-                usuario=Usuario.objects.get(nome=request.user)
-                botoes=lista_errou_ri[0]
-                ope=lista_errou_ri[1]
-                xp=Xp.objects.get(usuario__nome=request.user)
-                return render(request, 'app_anime/quiz_risadas.html', {'perso': ope,'botoes':botoes,'xp':xp, 'pontos':pontos})
-            else:
-                return redirect('game_over')            
+def sobre(request):
+    return render(request, 'app_anime/sobre.html', {})

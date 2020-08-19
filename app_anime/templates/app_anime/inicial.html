@@ -35,7 +35,7 @@
     #jogo {
       background-color: transparent;
       width: 400;
-      left: -20%;
+      left: 5%;
       position: absolute;
       top: 25%;
     }
@@ -43,7 +43,7 @@
     #jogo2 {
       background-color: transparent;
       width: 400;
-      left: -20%;
+      left: 5%;
       position: absolute;
       top: 0%;
     }
@@ -63,6 +63,9 @@
       position: absolute;
       top: 26%;
     }
+
+    #rodape{background-color: transparent; position: absolute; width: 1349px; height: 200px; left: 0%; top: 90%;}
+    #rodape2{background-color: transparent; position: absolute; width: 360px; height: 250px; left: 0%; top: 97%;}
   </style>
   <script>
     function Alerta(){alert("Faça Login para Continuar");}
@@ -81,155 +84,91 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <h5 class="text-light">Olá {{ user.username }} seja bem vindo(a) </h5>
+              <h5 class="text-light">Olá {{ user.username }} seja bem vindo(a)</h5>
             </li>
             <li class="nav-item ">
-              
             </li>
           </ul>
-          <h5><a style="font-weight: 550" href="{% url 'wanted' %}" class="btn btn-red">wanted</a>
-              <a style="font-weight: 550" href="{% url 'logout' %}" class="btn btn-red">sair</a></h5>
+          <h5>
+            <a class="btn btn-dark" style="font-weight: 550" href="{% url 'wanted' %}" >wanted</a>
+            <a class="btn btn-dark" style="font-weight: 550" href="{% url 'sobre' %}" class="btn btn-red">Sobre</a>
+              <a class="btn btn-dark" style="font-weight: 550" href="{% url 'logout' %}" class="btn btn-red">sair</a></h5>
         </div>
       </nav>
-    <div class="d-block d-sm-none">
-      <div id="container" class="container">
-            <div class="row" >
-                <div class="col-md-0 offset-md-0">
-                    <div class="card text-white border-0 bg-transparent mb-2" style="max-width: 30rem;" >
-                      <div class="card-body">
-                        <div id="jogo">
-                            <div id="base">
-                              <a href="{% url 'quiz_risadas' %}"><img src="media/Pimagem/quiz_de_risadas.png" width="380"></a>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
+      <div class="container" style="padding-top: 1%; padding-left: 6%;">
+        <div class="row">
+          <div class="col-md-0 offset-md-1">
+            <div class="card text-white bg-dark mb-1" style="max-width: 350px;">
+              <div class="card-body"><center>
+                <a href="{%url 'quiz_risadas'%}">
+                <img src="media/Pimagem/quiz_de_risadas.png" width="280"><br>
+                <b>Quiz de Risadas de One Piece</b></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-0 offset-md-1">
+            <div class="card text-white bg-dark mb-1" style="max-width: 350px;">
+                <div class="card-body"><center>
+                  <a href="{%url 'quiz_openings'%}">
+                  <img src="media/Pimagem/quiz_openings2.png" width="280"><br>
+                  <b>Quiz de Openings</b></a>
                 </div>
             </div>
+          </div>
+        </div>
       </div>
-      <div id="container2" class="container">
-            <div class="row" >
-                <div class="col-md-0 offset-md-0">
-                    <div class="card text-white border-0 bg-transparent mb-2" style="max-width: 30rem;" >
-                      <div class="card-body">
-                        <div id="jogo2">
-                          <div id="base">
-                            <a href="{% url 'quiz_openings' %}"><img src="media/Pimagem/quiz_openings2.png" width="380"></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-      </div>
-    </div>
-    <div class="d-none d-sm-block">
-        <div class="container">
-            <div class="row" >
-                <div class="col-md-0 offset-md-2">
-                    <div class="card text-white border-0 bg-transparent mb-2" style="position: absolute; top: 15%; max-width: 30rem;" >
-                      <div class="card-body">
-                        <div id="jogo">
-                            <div id="base">
-                              <a href="{% url 'quiz_risadas' %}"><img src="media/Pimagem/quiz_de_risadas.png" width="380"></a>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-      </div>
-      <div class="container">
-            <div class="row" >
-                <div class="col-md-0 offset-md-6">
-                    <div class="card text-white border-0 bg-transparent mb-2" style="position: absolute; top: 17%; max-width: 30rem;" >
-                      <div class="card-body">
-                        <div id="jogo2">
-                          <div id="base">
-                            <a href="{% url 'quiz_openings' %}"><img src="media/Pimagem/quiz_openings2.png" width="380"></a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-      </div>
-    </div>  
  {%else%}
-  
+    
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <h5 class="text-light">Olá faça login para ter acesso aos jogos! </h5>
           
         </li>
-      </ul><h5><a href="{% url 'login' %}">Entrar</a></h5>
+      </ul><a class="btn btn-dark" style="font-weight: 550" href="{% url 'sobre' %}" class="btn btn-red">Sobre</a>
+           <a class="btn btn-dark" style="font-weight: 550" href="{% url 'login' %}" class="btn btn-red">Entrar</a>
       
       </div>
     </nav>
-    <div class="container d-none d-sm-block">
-          <div class="row" >
-              <div class="col-md-0 offset-md-2">
-                  <div class="card text-white border-0 bg-transparent mb-2" style="max-width: 30rem;" >
-                    <div class="card-body">
-                      <div id="jogo">
-                          <div id="base">
-                            <input type="image" onclick="Alerta()" src="media/Pimagem/quiz_de_risadas.png" width="380"></a>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
+    <center>
+    <div class="container" style="padding-top: 1%; padding-left: 6%;">
+        <div class="row">
+          <div class="col-md-0 offset-md-1">
+            <div class="card text-white bg-dark mb-2" style="max-width: 350px;">
+              <div class="card-body">
+                <a onclick="Alerta()">
+                  <img src="media/Pimagem/quiz_de_risadas.png" width="300"><br>
+                  <b>Quiz de Risadas de One Piece</b></a>
               </div>
+            </div>
+          </div><br><br>
+          <div class="col-md-0 offset-md-1">
+            <div class="card text-white bg-dark mb-2" style="max-width: 350px;">
+                <div class="card-body">
+                  <a onclick="Alerta()">
+                  <img src="media/Pimagem/quiz_openings2.png" width="300"><br>
+                  <b>Quiz de Openings</b></a>
+                </div>
+            </div>
           </div>
-    </div>
-    <div class="container d-none d-sm-block">
-          <div class="row" >
-              <div class="col-md-0 offset-md-6">
-                  <div class="card text-white border-0 bg-transparent mb-1" style="position: absolute; top: 15%; max-width: 30rem;" >
-                    <div class="card-body">
-                      <div id="jogo2">
-                        <div id="base">
-                          <input type="image" onclick="Alerta()" src="media/Pimagem/quiz_openings2.png" width="380"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
+        </div>
+      </div>
+  {%endif%} <br><br><br><br><br><br>
+  <div class="container bg-dark" style="padding-top: 1%; max-width: 2000px;">
+    <div class="row-md-3">
+      <div class="col-md-0 offset-md-0"><center>
+        <div class="card text-white bg-dark mb-0" style="max-width: 2000px;">
+          <div class="card-body">
+              <h4>FEITO DE FÃ PARA FÃ</h4>
+              COPYRIGHT DANIMES 2020 ~ DESENVOLVIDO POR EQUIPE DANIMES<br>
+              <a href="https://instagram.com/danimes_01">
+              <img src="https://image.flaticon.com/icons/png/512/87/87390.png" width="40"></a>
+              <img src="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1.png" width="40">
           </div>
-    </div>
-  </div>
-    <div id="container" class="container d-block d-sm-none">
-          <div class="row" >
-              <div class="col-md-0 offset-md-0">
-                  <div class="card text-white border-0 bg-transparent mb-2" style="max-width: 30rem;" >
-                    <div class="card-body">
-                      <div id="jogo">
-                          <div id="base">
-                            <input type="image" onclick="Alerta()" src="media/Pimagem/quiz_de_risadas.png" width="380"></a>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-          </div>
-    </div>
-    <div id="container2" class="container d-block d-sm-none">
-          <div class="row" >
-              <div class="col-md-0 offset-md-0">
-                  <div class="card text-white border-0 bg-transparent mb-1" style="max-width: 30rem;" >
-                    <div class="card-body">
-                      <div id="jogo2">
-                        <div id="base">
-                          <input type="image" onclick="Alerta()" src="media/Pimagem/quiz_openings2.png" width="380"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-          </div>
+        </div>
+      </div>
     </div>
   </div>
-  {%endif%} 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

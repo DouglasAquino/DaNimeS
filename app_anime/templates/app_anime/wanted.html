@@ -23,6 +23,17 @@
            #dados{background-color: transparent; width: 200px; heigth: 497px; left: 70%; position: absolute; top: 280%;}
            #dados2{background-color: transparent; width: 200px; heigth: 497px; left: 170%; position: absolute; top: 280%;}
            #conteiner{background-color: transparent; position: absolute; top: 110%; left: -2%;}
+           .perfil{
+             z-index: 0;
+           }
+           .wanted{
+             z-index: 1;
+           }
+           .image {
+              position: relative;
+              width: 100px;
+              height: 100px;
+            } 
     </style>
   </head>
   <body>
@@ -42,60 +53,40 @@
               <h5><a style="font-weight: 550" href="{% url 'logout' %}" class="btn btn-red">sair</a></h5>
         </div>
       </nav>
-    <div class="container">
-          <div class="row" >
-              <div class="col-md-0 offset-md-0">
-                  <div class="card text-black border-0 bg-transparent mb-0" style="max-width: 30rem;" >
+
+    <div class="container" style="padding-top: 2%;">
+        <div class="row">
+          <div class="col-md-4 offset-md-0">
+              <div class="card text-white bg-transparent mb-0" style="max-width: 400px;">
+                  <div class="card-header">
                       <div class="card-body">
+                        <div class="perfil image">
                           {%if usuario.imagem %}
-                            <div id="perfil"><img src="{{usuario.imagem.url}}" width="300"></div>
+                            <img src="{{usuario.imagem.url}}" width="250">
                           {%else%}
-                            <div id="perfil"><img src="/media/Pimagem/semperfil.png" width="300"></div>
+                            <img src="/media/Pimagem/semperfil.png" width="250">
                           {%endif%}
-                            <div id="jogo">
-                              <div id="base">
-                                <img src="/media/Pimagem/wanted.png">
-                                <div id="nome"><font size=10px>{{usuario.nome}}</font></div>
-                                <div id="xp"><font size=10px>{{xp.qt_pontos}}.000</font></div>
-                              </div>
-                            </div>
+                        </div>
+                        <div class="wanted image">
+                          <img src="/media/Pimagem/wanted.png" width="300">
+                        </div>
                       </div>
                   </div>
               </div>
           </div>
-      </div>
-    <div class="d-none d-sm-block"> 
-          <div class="col-md-0 offset-md-3">
-              <div class="card text-black border-0 bg-transparent mb-2" style="max-width: 20rem;" >
-                  <div class="card-body">
-                      <div id="ranking"><img src="/media/Pimagem/wanted_ranking.jpg" width="350"></div>
-                      <div id="dados">
+          <div class="col-md-4 offset-md-0">
+              <div class="card text-white bg-dark mb-1" style="max-width: 400px;">
+                  <div class="card-header">
+                      <div class="card-body">
                           <h4>Top 10 recompensas</h4>
-                            {%for i in lista%}
-                                <b>user:</b> {{i.usuario.nome}}<b> - ฿ </b>{{i.qt_pontos}}.000<br>
-                            {%endfor%}
-                          </div>
+                          {%for i in lista%}
+                              <b>user:</b> {{i.usuario.nome}}<b> - ฿ </b>{{i.qt_pontos}}.000<br>
+                          {%endfor%}
+                      </div>
                   </div>
               </div>
-
           </div>
-      </div>
-  <div id="conteiner" class="d-block d-sm-none"> 
-          <div class="col-md-0  offset-md-0">
-              <div class="card text-black bg-transparent border-0 mb-0" style="max-width: 20rem;" >
-                  <div class="card-body">
-                      <div id="ranking2"><img src="/media/Pimagem/wanted_ranking.jpg" width="350"></div>
-                      <div id="dados2">
-                          <h4>Top 10 recompensas</h4>
-                            {%for i in lista%}
-                                <b>user:</b> {{i.usuario.nome}}<b> - ฿ </b>{{i.qt_pontos}}.000<br>
-                            {%endfor%}
-                          </div>
-                  </div>
-              </div>
-
-          </div>
-      </div>
-  </div>
+        </div>
+    </div>
   </body>
 </html>

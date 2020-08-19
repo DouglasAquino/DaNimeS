@@ -27,6 +27,8 @@
             top: 50%;
             left: 25%;
         }
+
+
     </style>
     <script>
         function Alerta(){alert("Opa você errou! Tente Novamente");}
@@ -60,25 +62,25 @@
         </div>
     </nav>
  
-    <div class="container" style="padding-top: 9%;">
+    <div class="container" style="padding-top: 4%;">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card text-white bg-danger mb-3" style="max-width: 40rem;">
                     <div class="card-header">
                         <h4 style="padding-top: 6%; font-weight: 550; color: white;">
-                            <center>ADIVINHE O NOME DO ANIME
+                            <center>𝒜𝒟𝐼𝒱𝐼𝒩𝐻𝐸 𝒪 𝒩𝒪𝑀𝐸 𝒟𝒪 𝒜𝒩𝐼𝑀𝐸
                         </h4>
                         <div class="card-body">
                             </center>
                             <div id="play" class='center'><center>
-                                <audio controls style="padding-top: 1%;">
-                                    <source src="{{ OP.opening.url }}" type="audio/mp3">
+                                <audio  controls style="padding-top: 1%;">
+                                    <source src="{{ OP.opening.url }}" type="audio/mp3" id="audio">
                                 </audio><br>
                                 {%for i in botoes%}
                                     {%if i == OP.nome%}
-                                        <a style="font-weight: 550" href="{% url 'acertou' pontos %}" class="btn btn-dark">{{i}}</a>
+                                        <a style="font-weight: 550" href="{% url 'acertou_op' pontos %}" class="btn btn-dark">{{i}}</a>
                                     {%else%}
-                                        <a style="font-weight: 550" href="{% url 'errou' pontos %}" onclick="Alerta()" class="btn btn-dark">{{i}}</a>
+                                        <a style="font-weight: 550" href="{% url 'errou_op' pontos %}" onclick="Alerta()" class="btn btn-dark">{{i}}</a>
                                     {%endif%}
                                 {%endfor%}
                             </div>
@@ -88,6 +90,27 @@
                 </div>
             </div>
         </div>
+    </div>
+    <br><br><br><br><br>
+    <div class="container bg-dark" style="padding-top: 0%; max-width: 2000px;">
+        <div class="row-md-3">
+            <div class="col-md-0 offset-md-0" style="padding-top: 3%;"><center>
+                <div class="card text-white bg-dark mb-0" style="max-width: 2000px;">
+                    <div class="card-header">
+                    <div class="card-body">
+                            <h4>FEITO DE FÃ PARA FÃ</h4>
+                            COPYRIGHT DANIMES 2020 ~ DESENVOLVIDO POR EQUIPE DANIMES<br>
+                            <a href="https://instagram.com/danimes_01">
+                            <img src="https://image.flaticon.com/icons/png/512/87/87390.png" width="40"></a>
+                            <img src="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1.png" width="40">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
  
  
  

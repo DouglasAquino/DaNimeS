@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>DaNimeS</title>
+  <style>
+
+    #usuario {
+      background-color: transparent;
+      width: 700; 
+      left: 15%;
+      position: absolute;
+      top: 5%;
+    }
+
+    #botao {
+      background-color: transparent;
+      width: 700;
+      left: 20%;
+      position: absolute;
+      top: 58%;
+    }
+
+    body {  background-image: url("media/Pimagem/background.jpg"); background-repeat: no-repeat; background-attachment: fixed; background-position: center; background-size: cover; height: 100%; background-size: cover;}
+
+    #personagem {
+      background-color: white;
+      width: 200;
+      left: 5%;
+      position: absolute;
+      top: 25%;
+    }
+
+    #personagem_celular {
+      background-color: white;
+      width: 200;
+      left: 5%;
+      position: absolute;
+      top: 2500%;
+    }
+
+    #personagem2 {
+      background-color: white;
+      width: 200;
+      left: -350%;
+      position: absolute;
+      top: 145%;
+    }
+
+    #personagem_celular2 {
+      background-color: white;
+      width: 200;
+      left: 5%;
+      position: absolute;
+      top: 45%;
+    }
+
+    #personagem3 {
+      background-color: white;
+      width: 200;
+      left: 220%;
+      position: absolute;
+      top: 145%;
+    }
+
+    #personagem_celular3 {
+      background-color: white;
+      width: 400;
+      left: 5%;
+      position: absolute;
+      top: 1700%;
+    }
+    
+    #container {
+      background-color: transparent;
+      width: 400;
+      left: 0%;
+      position: absolute;
+      top: 57%;
+    }
+
+    #container2 {
+      background-color: transparent;
+      width: 400;
+      left: 0%;
+      position: absolute;
+      top: 26%;
+    }
+    #sobre{background-color: white;}
+    #rodape{background-color: transparent; position: absolute; width: 1349px; height: 200px; left: 0%; top: 90%;}
+    #rodape2{background-color: transparent; position: absolute; width: 360px; height: 250px; left: 0%; top: 280%;}
+  </style>
+  <script>
+    function Alerta(){alert("Faça Login para Continuar");}
+    </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <a class="navbar-brand" href="{% url 'inicial' %}"><img src="media/Pimagem/logo-DaNimes.png" width="160"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <h5 class="text-light">sobre a Equipe DaNimeS </h5>
+          
+        </li>
+      </ul>
+          <a class="btn btn-dark" style="font-weight: 550" href="{% url 'inicial' %}" >voltar</a>
+      </div>
+    </nav>
+    <center>
+    <div id="sobre" class="bg-dark">
+      <center>
+      <font color="white">
+      A Equipe Danimes é um grupo de amigos estudantes de ciência da computação, fãs da cultura otaku!
+    </div>
+
+    <div class="container" style="padding-top: 2%;">
+        <div class="row">
+            <div class="col-md-4 offset-md-0">
+                <div class="card text-white bg-dark mb-1" style="max-width: 400px;">
+                    <div class="card-header">
+                        <h4 style="padding-top: 0%; font-weight: 550; color: white;">
+                            <h3 ><b>Stefan Lucas</b></h3>
+                        </h4>
+                        <div class="card-body">
+                            <img src="/media/fotPerfil/stefan.jpg" width="200"><div width="200px"><br>
+                            Idealizador do quiz de Risadas<br> de One Piece, programador,<br>
+                            Design de Imagnes do Site,<br> mega fã de One Piece!<br><br>
+                            <a href="https://instagram.com/danimes_01">
+                            <img src="https://image.flaticon.com/icons/png/512/87/87390.png" width="30"></a>
+                            <img src="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1.png" width="30"><br>
+                            </div>
+                        </div>
+                    </div>
+ 
+                </div>
+            </div>
+            <div class="col-md-4 offset-md-0">
+                <div class="card text-white bg-dark mb-1" style="max-width: 400px;">
+                    <div class="card-header">
+                        <h4 style="padding-top: 0%; font-weight: 550; color: white;">
+                            <h3 ><b>Natanna Rocha</b></h3>
+                        </h4>
+                        <div class="card-body">
+                            <img src="/media/fotPerfil/asuka.jpg" width="200"><div width="200px"><br>
+                            Idealizador do quiz de Risadas<br> de One Piece, programador,<br>
+                            Design de Imagnes do Site,<br> mega fã de One Piece!<br><br>
+                            <a href="https://instagram.com/danimes_01">
+                            <img src="https://image.flaticon.com/icons/png/512/87/87390.png" width="30"></a>
+                            <img src="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1.png" width="30"><br>
+                            </div>
+                        </div>
+                    </div>
+ 
+                </div>
+            </div>
+            <div class="col-md-4 offset-md-0">
+                <div class="card text-white bg-dark mb-1" style="max-width: 400px;">
+                    <div class="card-header">
+                        <h4 style="padding-top: 0%; font-weight: 550; color: white;">
+                            <h3 ><b>Douglas Aquino</b></h3>
+                        </h4>
+                        <div class="card-body">
+                            <img src="/media/fotPerfil/douglas.jpg" width="200"><div width="200px"><br>
+                            Idealizador do quiz de Risadas<br> de One Piece, programador,<br>
+                            Design de Imagnes do Site,<br> mega fã de One Piece!<br><br>
+                            <a href="https://instagram.com/danimes_01">
+                            <img src="https://image.flaticon.com/icons/png/512/87/87390.png" width="30"></a>
+                            <img src="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1.png" width="30"><br>
+                            </div>
+                        </div>
+                    </div>
+ 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-dark" style="padding-top: 1%; max-width: 2000px;">
+      <div class="row-md-3">
+        <div class="col-md-0 offset-md-0">
+              <div class="card text-white bg-dark mb-0" style="max-width: 2000px;">
+                  <div class="card-header">
+                      <h4 style="padding-top: 0%; font-weight: 550; color: white;">
+                        <img src="media/Pimagem/logo-DaNimeS.png" width="100"><br>
+                        
+                      </h4>
+                      <div class="card-body">
+                          <h4>FEITO DE FÃ PARA FÃ</h4>
+                          COPYRIGHT DANIMES 2020 ~ DESENVOLVIDO POR EQUIPE DANIMES<br>
+                          <a href="https://instagram.com/danimes_01">
+                          <img src="https://image.flaticon.com/icons/png/512/87/87390.png" width="30"></a>
+                          <img src="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1.png" width="30">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+        </div>
+      </div>
+    </div>
